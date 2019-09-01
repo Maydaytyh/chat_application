@@ -4,7 +4,7 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-30 22:51:46 +0800
- * @LastEditTime: 2019-09-01 10:47:41 +0800
+ * @LastEditTime: 2019-09-01 14:52:12 +0800
  * @LastEditors: 
  * @Description: 
  */
@@ -17,6 +17,13 @@ int Len_Server,Len_Client;
 int number=0;
 int Client[Max]={0};
 //*************************************************************
+/**
+ * @Author: Tian Yuhang
+ * @Description: 向当前活跃的客户端派发消息
+ * @Param: Fd:发出消息的客户端 Buf 消息内容 size 尺寸
+ * @Return: 无
+ * @Throw: 
+ */
 //该函数用于向别的用户发送消息
 void Send_Message(int Fd,char *Buf,int size)
 {
@@ -29,7 +36,13 @@ void Send_Message(int Fd,char *Buf,int size)
        }
     }
 }
-//该函数用于接收来自Pa_fd客户端的消息以及派发
+/**
+ * @Author: Tian Yuhang
+ * @Description: 该函数用于接收来自Pa_fd客户端的消息以及派发
+ * @Param: void *Pa_Fd  发送的客户端指针
+ * @Return: 无
+ * @Throw: 
+ */
 void *Pthread_Service(void* Pa_Fd)
 {
     int Fd=*(int *)Pa_Fd;
@@ -55,23 +68,13 @@ void *Pthread_Service(void* Pa_Fd)
 int main()
 {
     printf("******************Server is running!***************************\n");
-    /*int shmid;
-    char *shmaddr;                       //定义子进程共用的共享内存 
-    shmid = shmget(MYKEY, SIZE, IPC_CREAT | 0600); //申请共享内存 
-    shmaddr= (char *) shmat(shmid, 0, 0);//链接进程与共享内存，返回内存起始位置。
-    if(shmid==-1)
-    {
-        printf("shmid error\n");
-    }
-    memset(shmaddr,0,SIZE);
-    memset(buf,0,1024);*/
     Fd_Server=socket(AF_INET,SOCK_STREAM,0);//定义套接字
     if(Fd_Server==-1)
     {
          puts("***************************Socket Error!*************************");
         exit(1);
     }
-     int opt = SO_REUSEADDR;
+    int opt = SO_REUSEADDR;
     setsockopt(Fd_Server, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
     bzero(&Server_Addr,sizeof(Server_Addr));
     Server_Addr.sin_family=AF_INET;
