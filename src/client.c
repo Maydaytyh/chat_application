@@ -4,7 +4,7 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-31 21:14:51 +0800
- * @LastEditTime: 2019-09-01 10:50:50 +0800
+ * @LastEditTime: 2019-09-01 16:00:58 +0800
  * @LastEditors: 
  * @Description: 
  */
@@ -18,15 +18,23 @@ int Len_Server;
 int Num_Of_Bytes;
 char Name[1024];
 //*************************************************************
+/**
+ * @Author: Tian Yuhang
+ * @Description: 从服务器收取信息
+ * @Param: 
+ * @Return: 
+ * @Throw: 
+ */
 void Pthread_Recv(void *Ptr)
 {
     while(1)
     {
-        if(recv(Fd_Server,Rec_Buf,Size,0)==-1)
+        /*if(recv(Fd_Server,Rec_Buf,Size,0)==-1)
         {
             puts("***************************Receive Error!*************************");
             exit(1);
-        }
+        }*/
+        receiveMSG(Fd_Server,Rec_Buf,Size,0);
         printf("%s",Rec_Buf);
         memset(Rec_Buf,0,sizeof Rec_Buf);
     }
@@ -48,22 +56,14 @@ int main()
          puts("***************************Connect Error!*************************");
          exit(1);
     }*/
-    if ((Fd_Server=socket(AF_INET, SOCK_STREAM, 0))==-1){ 
-    printf("socket() error\n"); 
-    exit(1); 
-    } 
-
+    Fd_Server=createSocket(AF_INET,SOCK_STREAM);
     bzero(&Server_Addr,sizeof(Server_Addr));
-
-    Server_Addr.sin_family = AF_INET; 
-    Server_Addr.sin_port = htons(Port); 
-    //server.sin_addr = *((struct in_addr *)he->h_addr); 
-    Server_Addr.sin_addr.s_addr = INADDR_ANY;
+    initialzeSocketaddr(&Server_Addr,NULL,Port);
     if(connect(Fd_Server, (struct sockaddr *)&Server_Addr,sizeof(struct sockaddr))==-1){  
     printf("connect() error\n"); 
     exit(1); 
     } 
-
+    
     puts("***************************Connect Success!*************************");
     char Print[]="已加入聊天\n";
     printf("请输入用户名：");

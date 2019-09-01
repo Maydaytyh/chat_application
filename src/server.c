@@ -4,7 +4,7 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-30 22:51:46 +0800
- * @LastEditTime: 2019-09-01 14:52:12 +0800
+ * @LastEditTime: 2019-09-01 15:44:27 +0800
  * @LastEditors: 
  * @Description: 
  */
@@ -30,8 +30,7 @@ void Send_Message(int Fd,char *Buf,int size)
     for(int i=0;i<Max;++i)
     {
        if(Client[i]&&Client[i]!=Fd){
-
-       send(Client[i],Buf,size,0);
+        writeBack(Client[i],Buf,size,0);
         printf("Send Message To %d Successfully\n",Client[i]);
        }
     }
@@ -68,38 +67,18 @@ void *Pthread_Service(void* Pa_Fd)
 int main()
 {
     printf("******************Server is running!***************************\n");
-    Fd_Server=socket(AF_INET,SOCK_STREAM,0);//定义套接字
-    if(Fd_Server==-1)
-    {
-         puts("***************************Socket Error!*************************");
-        exit(1);
-    }
+    Fd_Server=createSocket(AF_INET,SOCK_STREAM);//定义套接字
     int opt = SO_REUSEADDR;
     setsockopt(Fd_Server, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-    bzero(&Server_Addr,sizeof(Server_Addr));
-    Server_Addr.sin_family=AF_INET;
-    Server_Addr.sin_port=htons(Port);
-    Server_Addr.sin_addr.s_addr=htonl(INADDR_ANY);
+    initialzeSocketaddr(&Server_Addr,NULL,Port);
     Len_Server=sizeof(struct sockaddr);
-    if(bind(Fd_Server,(struct sockaddr *)&Server_Addr,Len_Server)==-1)
-    {
-        puts("***************************Bind Error!*************************");
-        exit(1);
-    }
-    if(listen(Fd_Server,1)==-1)
-    {
-        puts("**************************Listen Error!*************************");
-        exit(1);
-    }
+    bindSocketAddr(Fd_Server,(struct sockaddr *)&Server_Addr,Len_Server);
+    createListen(Fd_Server,1);
     puts("****************************Listening!*******************************");
     Len_Client=sizeof(Client_Addr);
     while(1)
     {
-        if((Fd_Client=accept(Fd_Server,(struct sockaddr*)&Client_Addr,&Len_Client))==-1)
-        {
-            puts("**************************Accept Error!*************************");
-            exit(1);
-        }
+        acceptConnection(Fd_Server,(struct sockaddr*)&Client_Addr,Len_Client);
         if(number>=Max)
         {
             puts("*******************Over The Limit!****************************");
