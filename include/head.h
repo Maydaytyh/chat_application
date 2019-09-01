@@ -4,7 +4,7 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-30 15:08:30 +0800
- * @LastEditTime: 2019-08-30 15:25:38 +0800
+ * @LastEditTime: 2019-09-01 09:30:52 +0800
  * @LastEditors: 
  * @Description: 这里是主头文件，包含了所有的库文件，全局变量声明，结构体声明等
  */
@@ -14,7 +14,7 @@
 #include "config.h"//这里为了防止遗忘，确保把config文件链接到所有文件中
 #include <stdio.h>
 #include <stdlib.h>
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
 #include <pthread.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -22,13 +22,21 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <string.h>
-
+#include<sys/types.h>
+#include<sys/shm.h>
+#include<signal.h>
+#include<sys/msg.h>
+#include<strings.h>
+#include<sys/ipc.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
+#include<netdb.h>
 
 /////////////define区////////////////////
-
-
-
-
+#define Own_Key 12345
+#define Max 10
+#define Size 10240
+#define Port 1234
 
 //////////////typedef区/////////////////
 typedef int socketfd;
@@ -48,8 +56,8 @@ typedef double FLOAT64;
 typedef unsigned char BOOLEAN;
 typedef unsigned char boolean;
 typedef unsigned char bool;
-
-
+typedef struct sockaddr_in sockaddr_int;
+struct sockaddr sockaddr;
 /////////////全局结构体定义区//////////
 
 
