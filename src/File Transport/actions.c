@@ -4,7 +4,7 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-30 21:22:06 +0800
- * @LastEditTime: 2019-09-01 15:17:58 +0800
+ * @LastEditTime: 2019-09-01 22:59:38 +0800
  * @LastEditors: 
  * @Description: 
  */
@@ -168,46 +168,3 @@ void receiveMSG(socketfd skf, char *buff, size_t max_bytes, int flag)
      }
  }
 
-
-
-#ifdef TEST
-
-int main(int argc, char *argv[])
-{
-    char buff[1024];
-    struct sockaddr_in addr;
-
-    initialzeSocketaddr(&addr, NULL, PORT);
-
-    socketfd server_socket, client_socket;
-
-    server_socket = createSocket(SOCK_STREAM, 0);
-    /*
-    if ((server_socket = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-    {
-        printf("create socket error: %s(errno: %d)\n", strerror(errno), errno);
-        exit(0);
-    }
-//*/
-    bindSocketAddr(server_socket, (struct sockaddr *)&addr, sizeof(addr));
-
-    // printf("%d\n", listen(server_socket, 5));
-    createListen(server_socket, 5);
-
-    client_socket = acceptConnection(server_socket, (struct sockaddr*)NULL, 0);
-    // acceptConnection(&client_socket, &server_socket, (struct sockaddr*)NULL, NULL);
-
-    receiveMSG(client_socket, buff, 100, 0);
-
-    printf("%s\n",buff);
-    writeBack(client_socket, buff, sizeof(buff), 0);
-
-    close(client_socket);
-
-    close(server_socket);
-    // printf("hello world\n");
-
-    return 0;
-}
-
-#endif

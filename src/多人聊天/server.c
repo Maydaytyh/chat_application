@@ -4,11 +4,12 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-30 22:51:46 +0800
- * @LastEditTime: 2019-09-01 15:44:27 +0800
+ * @LastEditTime: 2019-09-01 23:21:07 +0800
  * @LastEditors: 
  * @Description: 
  */
 #include "head.h"
+#include "actions.h"
 //***************************全局变量**************************************
 char Buf[Size];
 sockaddr_int Server_Addr,Client_Addr;
@@ -30,7 +31,8 @@ void Send_Message(int Fd,char *Buf,int size)
     for(int i=0;i<Max;++i)
     {
        if(Client[i]&&Client[i]!=Fd){
-        writeBack(Client[i],Buf,size,0);
+       writeBack(Client[i],Buf,size,0);
+        // send(Client[i],Buf,size,0);
         printf("Send Message To %d Successfully\n",Client[i]);
        }
     }
@@ -56,6 +58,7 @@ void *Pthread_Service(void* Pa_Fd)
                 if(Fd==Client[i]) Client[i]=0;
             }
             printf("Num_Of_Bytes=%d\nExit at Fd=%d\n",Num_Of_Bytes,Fd);
+		perror("recv");
             break;
         }
         printf("Receive Message Frome %d\n",Fd);
@@ -78,7 +81,12 @@ int main()
     Len_Client=sizeof(Client_Addr);
     while(1)
     {
-        acceptConnection(Fd_Server,(struct sockaddr*)&Client_Addr,Len_Client);
+       acceptConnection(Fd_Server,(struct sockaddr*)&Client_Addr,Len_Client);
+      //  if((Fd_Client=accept(Fd_Server,(struct sockaddr*)&Client_Addr,&Len_Client))==-1)
+        //{
+          //  puts("**************************Accept Error!*************************");
+            //exit(1);
+        //}
         if(number>=Max)
         {
             puts("*******************Over The Limit!****************************");

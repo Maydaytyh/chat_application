@@ -4,11 +4,12 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-31 21:14:51 +0800
- * @LastEditTime: 2019-09-01 16:00:58 +0800
+ * @LastEditTime: 2019-09-02 00:44:50 +0800
  * @LastEditors: 
  * @Description: 
  */
 #include "head.h"
+#include"actions.h"
 //***************************全局变量**************************************
 char Buf[Size];
 char Rec_Buf[Size];
@@ -59,6 +60,7 @@ int main()
     Fd_Server=createSocket(AF_INET,SOCK_STREAM);
     bzero(&Server_Addr,sizeof(Server_Addr));
     initialzeSocketaddr(&Server_Addr,NULL,Port);
+    Server_Addr.sin_addr.s_addr=inet_addr("192.168.154.131 ");
     if(connect(Fd_Server, (struct sockaddr *)&Server_Addr,sizeof(struct sockaddr))==-1){  
     printf("connect() error\n"); 
     exit(1); 
