@@ -21,6 +21,34 @@
                 "$gcc"
             ]
         },
+        {
+            "type": "shell",
+            "label": "gcc build active file",
+            "command": "/usr/bin/gcc -g ${file} -lpthread -lcjson  -I${fileDirname}/../include -I/usr/include/ -I/usr/include/gtk-2.0/ -o ${fileDirname}/../build/${fileBasenameNoExtension} `pkg-config --cflags gtk+-2.0` && ${fileDirname}/../build/${fileBasenameNoExtension}",
+            "args": [],
+            "options": {},
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "gcc debug active file",
+            "command": "/usr/bin/gcc -g ${file} -lpthread -lcjson -I${fileDirname}/../include -I/usr/include/ -I/usr/include/gtk-2.0/ -o ${fileDirname}/../build/${fileBasenameNoExtension} `pkg-config --cflags gtk+-2.0`",
+            "args": [],
+            "options": {},
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
     ],
     "version": "2.0.0"
 }

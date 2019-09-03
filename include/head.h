@@ -4,7 +4,7 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-30 15:08:30 +0800
- * @LastEditTime: 2019-08-30 15:25:38 +0800
+ * @LastEditTime: 2019-09-03 11:09:17 +0800
  * @LastEditors: 
  * @Description: 这里是主头文件，包含了所有的库文件，全局变量声明，结构体声明等
  */
@@ -12,6 +12,7 @@
 #define __HEAD_H__
 ///////////////include库文件区/////////////
 #include "config.h"//这里为了防止遗忘，确保把config文件链接到所有文件中
+#include <cjson/cJSON.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
@@ -21,7 +22,9 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <unistd.h>
-#include <string.h>
+#include<string.h>  
+#include<errno.h>  
+#include<sys/types.h>   
 
 
 /////////////define区////////////////////
