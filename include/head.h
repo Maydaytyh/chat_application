@@ -4,7 +4,7 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-08-30 15:08:30 +0800
- * @LastEditTime: 2019-09-01 22:59:10 +0800
+ * @LastEditTime: 2019-09-04 01:25:52 +0800
  * @LastEditors: 
  * @Description: 这里是主头文件，包含了所有的库文件，全局变量声明，结构体声明等
  */
@@ -32,10 +32,12 @@
 #include<arpa/inet.h>
 #include<netdb.h>
 #include<errno.h>
+#include<time.h>
+#include<pwd.h>
 /////////////define区////////////////////
 #define Own_Key 12345
 #define Max 10
-#define Size 10240
+#define Size 102400
 #define Port 1234
 
 //////////////typedef区/////////////////
