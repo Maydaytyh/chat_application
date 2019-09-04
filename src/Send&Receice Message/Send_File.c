@@ -4,7 +4,7 @@
  * @File name: 
  * @Version: 
  * @Date: 2019-09-03 23:26:20 +0800
- * @LastEditTime: 2019-09-04 15:22:10 +0800
+ * @LastEditTime: 2019-09-05 00:51:57 +0800
  * @LastEditors: 
  * @Description: 
  */
@@ -23,8 +23,8 @@
 #include <stdio.h>		// printf
 #include <stdlib.h>		// exit
 #include <string.h>		// bzero
+#include "head.h"
 #include<time.h>
-#define Size 102400
 /**
  * @Author: Tian Yuhang
  * @Description: 用于服务器从客户端接受文件
