@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "head.h": "c",
-        "msg.h": "c"
+        "msg.h": "c",
+        "queue.h": "c"
     },
     "git.ignoreLimitWarning": true
 }
